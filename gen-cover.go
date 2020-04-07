@@ -49,7 +49,7 @@ func handleRequest(conn net.Conn) {
 
 	defer conn.Close()
 
-	group := r.FindAllString(string(buf), -1)
+	group := r.FindAllString(strings.ReplaceAll(string(buf), " ", "-"), -1)
 	room := strings.Join(group, "")
 	size := len(room)
 
