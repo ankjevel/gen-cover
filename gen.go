@@ -53,9 +53,9 @@ func gen(label string) (bytes.Buffer, error) {
 			fi = 1
 		}
 
-		if fi == int(m) {
-			fi = int(m)
-			ci = fi - 1
+		if ci > int(m) {
+			ci = int(m)
+			fi = ci - 1
 		}
 
 		from := &rgbs[fi]
