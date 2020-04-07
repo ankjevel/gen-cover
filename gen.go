@@ -33,27 +33,23 @@ func gen(label string) (bytes.Buffer, error) {
 
 	scene.EachPixel(offsetY, func(x, y int) color.RGBA {
 		var (
-			xy  = float64(x + y)
-			wh  = float64(width + height)
-			i   = (xy / wh) * float64(len(rgbs))
-			f   = math.Floor(i)
-			c   = math.Ceil(i)
-			p   = i - f
-			rgb = &rgbs[int(i)]
+			xy = float64(x + y)
+			wh = float64(width + height)
+			i  = (xy / wh) * float64(len(rgbs))
+			f  = math.Floor(i)
+			c  = math.Ceil(i)
+			p  = i - f
 		)
-
-		if rgb == nil {
-			return color.RGBA{0, 0, 0, 255}
-		}
 
 		pc := &rgbs[int(f)]
 		nc := &rgbs[int(math.Min(c, float64(len(rgbs)-1)))]
-		pcrgb := colorful.Color{
-			R: float64(pc.R), G: float64(pc.G), B: float64(pc.B),
+
+		if pc == nil || nc == nil {
+			return color.RGBA{0, 0, 0, 255}
 		}
-		ncrgb := colorful.Color{
-			R: float64(nc.R), G: float64(nc.G), B: float64(nc.B),
-		}
+
+		pcrgb := colorful.Color{R: float64(pc.R), G: float64(pc.G), B: float64(pc.B)}
+		ncrgb := colorful.Color{R: float64(nc.R), G: float64(nc.G), B: float64(nc.B)}
 
 		blend := pcrgb.BlendHcl(ncrgb, p)
 
