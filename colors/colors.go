@@ -51,11 +51,11 @@ func Get(label string) (res *[5]RGB) {
 
 func init() {
 	hexes := [][5]HEX{
-		{"#009A6C", "#2DAF87", "#59C2A2", "#86D5BB", "#B3E5D5"},
+		{"#21AA78", "#42B986", "#64C796", "#85D4A7", "#A6E1BB"},
 		{"#949A6C", "#A7AD85", "#BBBF9E", "#CDD1B8", "#E0E2D2"},
 		{"#FF9A6C", "#FFAB83", "#FFBC9B", "#FFCDB4", "#FFDFCF"},
 		{"#FF006C", "#FF2D85", "#FF599E", "#FF86B8", "#FFB3D2"},
-		// {"#FFE36C", "#FFEA83", "#FFF09B", "#FFF5B4", "#FFF9CF"},
+		{"#FFE36C", "#FFEA83", "#FFF09B", "#FFF5B4", "#FFF9CF"},
 		{"#FF7F00", "#FF952D", "#FFAC59", "#FFC286", "#FFD9B3"},
 		{"#FF7FDA", "#FF93E2", "#FFA8E9", "#FFBEEF", "#FFD5F6"},
 		{"#97A0C8", "#A8B0D3", "#BAC0DD", "#CCD1E7", "#DEE2F0"},

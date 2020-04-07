@@ -33,25 +33,41 @@ func gen(label string) (bytes.Buffer, error) {
 
 	scene.EachPixel(offsetY, func(x, y int) color.RGBA {
 		var (
-			xy = float64(x + y)
-			wh = float64(width + height)
-			i  = (xy / wh) * float64(len(rgbs))
-			f  = math.Floor(i)
-			c  = math.Ceil(i)
-			p  = i - f
+			xy  = float64(x + y)
+			wh  = float64(width + height)
+			m   = float64(len(rgbs) - 1)
+			i   = (xy / wh) * m
+			min = math.Floor(i)
+			max = math.Ceil(i)
+			p   = i - min
+			fi  = int(min)
+			ci  = int(math.Min(max, float64(len(rgbs)-1)))
 		)
 
-		pc := &rgbs[int(f)]
-		nc := &rgbs[int(math.Min(c, float64(len(rgbs)-1)))]
+		if fi == ci {
+			ci += 1
+		}
 
-		if pc == nil || nc == nil {
+		if ci == -1 || fi == -1 {
+			ci = 0
+			fi = 1
+		}
+
+		if fi == int(m) {
+			fi = int(m)
+			ci = fi - 1
+		}
+
+		from := &rgbs[fi]
+		to := &rgbs[ci]
+
+		if from == nil || to == nil {
 			return color.RGBA{0, 0, 0, 255}
 		}
 
-		pcrgb := colorful.Color{R: float64(pc.R), G: float64(pc.G), B: float64(pc.B)}
-		ncrgb := colorful.Color{R: float64(nc.R), G: float64(nc.G), B: float64(nc.B)}
-
-		blend := pcrgb.BlendHcl(ncrgb, p)
+		fromRGB := colorful.Color{R: float64(from.R), G: float64(from.G), B: float64(from.B)}
+		toRGB := colorful.Color{R: float64(to.R), G: float64(to.G), B: float64(to.B)}
+		blend := fromRGB.BlendHcl(toRGB, p)
 
 		return color.RGBA{uint8(blend.R), uint8(blend.G), uint8(blend.B), 255}
 	})
