@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Iteam1337/gen-cover/colors"
-	"github.com/Iteam1337/gen-cover/scene"
+	"github.com/ankjevel/gen-cover/colors"
+	"github.com/ankjevel/gen-cover/scene"
 	"github.com/lucasb-eyer/go-colorful"
 )
 
