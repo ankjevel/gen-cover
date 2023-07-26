@@ -9,7 +9,7 @@ import (
 	"image/png"
 	"os"
 
-	"github.com/Iteam1337/gen-cover/fonts"
+	"github.com/ankjevel/gen-cover/fonts"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
