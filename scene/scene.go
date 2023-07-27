@@ -7,7 +7,10 @@ import (
 	"image/draw"
 	"image/jpeg"
 	"image/png"
+	"log"
 	"os"
+	"path/filepath"
+	"runtime"
 
 	"github.com/ankjevel/gen-cover/fonts"
 	"golang.org/x/image/font"
@@ -38,8 +41,17 @@ func decode(path string) (img image.Image) {
 }
 
 func init() {
-	wejay = decode("./static/wejay-bl-100.png")
-	noise = decode("./static/noise.png")
+	_, filename, _, ok := runtime.Caller(0)
+
+	if !ok {
+		log.Println("could not get current filename")
+		panic(0)
+	}
+
+	static_dir := filepath.Dir(filename) + "/../static"
+
+	wejay = decode(static_dir + "/wejay-bl-100.png")
+	noise = decode(static_dir + "/noise.png")
 }
 
 func (s *Scene) AddLabel(x, y int, label string) {
