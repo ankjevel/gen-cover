@@ -10,16 +10,16 @@ clean:
 
 bin:
 	@mkdir -p bin
-	@go build -o bin/gen-cover
+	@go build -o bin/gen_cover
 	@echo '"bin" successful'
 
 clean_release:
 	@rm -rf release/
 
 release: clean_release
-	@mkdir -p release/gen-cover/fonts/src release/gen-cover/static
-	@go build -ldflags="-s -w" -o release/gen-cover/bin
-	@$(INSTALL) static/* release/gen-cover/static/
-	@$(INSTALL) fonts/src/*ttf release/gen-cover/fonts/src/
-	@$(INSTALL) .env-template release/gen-cover/.env-template
+	@mkdir -p release/gen_cover/fonts/src release/gen_cover/static
+	@go build -ldflags="-s -w" -o release/gen_cover/bin
+	@$(INSTALL) static/* release/gen_cover/static/
+	@$(INSTALL) fonts/src/*ttf release/gen_cover/fonts/src/
+	@$(INSTALL) .env-template release/gen_cover/.env-template
 	@echo '"release" successful'
