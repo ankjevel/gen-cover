@@ -36,16 +36,37 @@ func fromHEX(hex HEX) (rgb RGB, err error) {
 	return
 }
 
-var RGBs [][5]RGB
+var rgbs [][5]RGB
 
 func Get(label string) (res *[5]RGB) {
 	var s int
 	for _, r := range label {
 		s += int(r)
 	}
-	l := len(RGBs)
-	res = &RGBs[s%l]
+	l := len(rgbs)
+	res = &rgbs[s%l]
 
+	return
+}
+
+func toRGB(hexes [5]HEX) (result [5]RGB, err error) {
+	var h0, h1, h2, h3, h4 RGB
+	if h0, err = fromHEX(hexes[0]); err != nil {
+		return
+	}
+	if h1, err = fromHEX(hexes[1]); err != nil {
+		return
+	}
+	if h2, err = fromHEX(hexes[2]); err != nil {
+		return
+	}
+	if h3, err = fromHEX(hexes[3]); err != nil {
+		return
+	}
+	if h4, err = fromHEX(hexes[4]); err != nil {
+		return
+	}
+	result = [5]RGB{h4, h3, h2, h1, h0}
 	return
 }
 
@@ -62,23 +83,10 @@ func init() {
 	}
 
 	for _, hexes := range hexes {
-		var h0, h1, h2, h3, h4 RGB
-		var err error
-		if h0, err = fromHEX(hexes[0]); err != nil {
+		res, err := toRGB(hexes)
+		if err != nil {
 			continue
 		}
-		if h1, err = fromHEX(hexes[1]); err != nil {
-			continue
-		}
-		if h2, err = fromHEX(hexes[2]); err != nil {
-			continue
-		}
-		if h3, err = fromHEX(hexes[3]); err != nil {
-			continue
-		}
-		if h4, err = fromHEX(hexes[4]); err != nil {
-			continue
-		}
-		RGBs = append(RGBs, [5]RGB{h4, h3, h2, h1, h0})
+		rgbs = append(rgbs, res)
 	}
 }

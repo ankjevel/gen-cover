@@ -1,7 +1,10 @@
 package fonts
 
 import (
-	"io/ioutil"
+	"log"
+	"os"
+	"path/filepath"
+	"runtime"
 
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
@@ -19,7 +22,7 @@ var (
 )
 
 func parsePath(path string, size float64) font.Face {
-	dat, err := ioutil.ReadFile(path)
+	dat, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
@@ -36,6 +39,15 @@ func parsePath(path string, size float64) font.Face {
 }
 
 func init() {
-	FaceSub = parsePath("./fonts/src/Lato-Regular.ttf", FaceSubSize)
-	FaceMain = parsePath("./fonts/src/Lato-Black.ttf", FaceMainSize)
+	_, filename, _, ok := runtime.Caller(0)
+
+	if !ok {
+		log.Println("could not get current filename")
+		panic(0)
+	}
+
+	src_dir := filepath.Dir(filename) + "/src"
+
+	FaceSub = parsePath(src_dir+"/Lato-Regular.ttf", FaceSubSize)
+	FaceMain = parsePath(src_dir+"/Lato-Black.ttf", FaceMainSize)
 }

@@ -63,9 +63,10 @@ func handleRequest(conn net.Conn) {
 		return
 	}
 
-	bufferSize := make([]byte, 4)
-	binary.LittleEndian.PutUint32(bufferSize, uint32(len(img.Bytes())))
-	if _, err := conn.Write(bufferSize); err != nil {
+	buffer_size := make([]byte, 4)
+	binary.LittleEndian.PutUint32(buffer_size, uint32(len(img.Bytes())))
+
+	if _, err := conn.Write(buffer_size); err != nil {
 		log.Println(err)
 	}
 
