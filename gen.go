@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"image/color"
 	"math"
-	"os"
-	"strings"
 
 	"github.com/ankjevel/gen-cover/colors"
 	"github.com/ankjevel/gen-cover/scene"
@@ -17,15 +15,6 @@ var (
 	offset_y      = int(float64(height) / 2.3)
 	offset_x      = int(float64(width) / 6.5)
 )
-
-func getEnv(key, fallback string) string {
-	value := strings.TrimSpace(os.Getenv(key))
-	if value != "" {
-		return value
-	}
-
-	return fallback
-}
 
 func gen(label string) (bytes.Buffer, error) {
 	scene := scene.New(width, height)
@@ -67,7 +56,7 @@ func gen(label string) (bytes.Buffer, error) {
 
 		from_rgb := colorful.Color{R: float64(from.R), G: float64(from.G), B: float64(from.B)}
 		to_rgb := colorful.Color{R: float64(to.R), G: float64(to.G), B: float64(to.B)}
-		blend := from_rgb.BlendHcl(to_rgb, p)
+		blend := from_rgb.BlendRgb(to_rgb, p)
 
 		return color.RGBA{uint8(blend.R), uint8(blend.G), uint8(blend.B), 255}
 	})

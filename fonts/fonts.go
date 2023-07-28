@@ -21,7 +21,7 @@ var (
 	FaceMain font.Face
 )
 
-func parsePath(path string, size float64) font.Face {
+func parseFont(path string, size float64) font.Face {
 	dat, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
@@ -48,6 +48,6 @@ func init() {
 
 	src_dir := filepath.Dir(filename) + "/src"
 
-	FaceSub = parsePath(src_dir+"/Lato-Regular.ttf", FaceSubSize)
-	FaceMain = parsePath(src_dir+"/Lato-Black.ttf", FaceMainSize)
+	FaceSub = parseFont(src_dir+"/Lato-Light.ttf", FaceSubSize)
+	FaceMain = parseFont(src_dir+"/Lato-Black.ttf", FaceMainSize)
 }

@@ -2,31 +2,27 @@ package main
 
 import (
 	"encoding/binary"
-	"fmt"
 	"log"
 	"net"
 	"os"
 	"regexp"
 	"strings"
 
-	_ "github.com/joho/godotenv/autoload"
+	"github.com/ankjevel/gen-cover/utils"
 )
 
 var (
-	r    = regexp.MustCompile(`[a-z0-9-]`)
-	host = getEnv("HOST", "localhost")
-	port = getEnv("PORT", "8091")
-	addr = getEnv("ADDR", fmt.Sprintf("%s:%s", host, port))
+	r = regexp.MustCompile(`[a-z0-9-]`)
 )
 
 func main() {
-	l, err := net.Listen("tcp", addr)
+	l, err := net.Listen("tcp", utils.Config.Addr)
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
 
-	log.Println("listening on TCP", addr)
+	log.Println("listening on TCP", utils.Config.Addr)
 
 	defer l.Close()
 
