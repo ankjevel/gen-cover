@@ -21,5 +21,5 @@ release: clean_release
 	@go build -ldflags="-s -w" -o release/gen_cover/bin
 	@$(INSTALL) static/* release/gen_cover/static/
 	@$(INSTALL) fonts/src/*ttf release/gen_cover/fonts/src/
-	@$(INSTALL) .env-template release/gen_cover/.env-template
+	@$(INSTALL) .template.env release/gen_cover/.temple.env
 	@echo '"release" successful'

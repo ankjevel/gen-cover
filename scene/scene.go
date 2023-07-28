@@ -23,7 +23,6 @@ type Scene struct {
 }
 
 var (
-	wejay image.Image
 	noise image.Image
 )
 
@@ -50,7 +49,6 @@ func init() {
 
 	static_dir := filepath.Dir(filename) + "/../static"
 
-	wejay = decode(static_dir + "/wejay-bl-100.png")
 	noise = decode(static_dir + "/noise.png")
 }
 
@@ -72,7 +70,7 @@ func (s *Scene) AddLabel(x, y int, label string) {
 	}
 
 	sy := float64(size.Y)
-	drawer(int(sy-(fontsize*6.6))*64, "wejay", fonts.FaceSub)
+	drawer(int(sy-(fontsize*6.6))*64, "hello", fonts.FaceSub)
 	drawer(int(sy-(fontsize*4.8))*64, label, fonts.FaceMain)
 }
 
@@ -85,14 +83,9 @@ func (s *Scene) EachPixel(offset int, colorFunction func(int, int) color.RGBA) {
 
 	bounds := s.Img.Bounds()
 
-	wb := wejay.Bounds()
-	wy := fonts.FaceMainSize / 2
-	wrect := image.Rect(0, wy, wb.Dx(), wy+wb.Dy())
-
 	m := image.NewRGBA(bounds)
 	draw.Draw(m, bounds, s.Img, image.Point{0, 0}, draw.Src)
 	draw.Draw(m, bounds, noise, image.Point{0, 0}, draw.Over)
-	draw.Draw(m, wrect, wejay, image.Point{0, 0}, draw.Over)
 
 	s.Img = m
 }
