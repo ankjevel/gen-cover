@@ -13,6 +13,7 @@ import (
 	"runtime"
 
 	"github.com/ankjevel/gen-cover/fonts"
+	"github.com/ankjevel/gen-cover/utils"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
@@ -50,11 +51,12 @@ func init() {
 	static_dir := filepath.Dir(filename) + "/../static"
 
 	noise = decode(static_dir + "/noise.png")
+
 }
 
 func (s *Scene) AddLabel(x, y int, label string) {
-	fontsize := float64(fonts.FaceMainSize)
-	dotX := fixed.Int26_6(fontsize * 1.4 * 64)
+	font_size := float64(fonts.FaceMainSize)
+	dot_x := fixed.Int26_6(font_size * 1.4 * 64)
 	size := s.Img.Bounds().Size()
 	drawer := func(y int, label string, face font.Face) {
 		drawer := &font.Drawer{
@@ -62,7 +64,7 @@ func (s *Scene) AddLabel(x, y int, label string) {
 			Src:  image.NewUniform(color.RGBA{255, 255, 255, 255}),
 			Face: face,
 			Dot: fixed.Point26_6{
-				X: dotX,
+				X: dot_x,
 				Y: fixed.Int26_6(y),
 			},
 		}
@@ -70,8 +72,11 @@ func (s *Scene) AddLabel(x, y int, label string) {
 	}
 
 	sy := float64(size.Y)
-	drawer(int(sy-(fontsize*6.6))*64, "hello", fonts.FaceSub)
-	drawer(int(sy-(fontsize*4.8))*64, label, fonts.FaceMain)
+	if utils.Config.Title != "" {
+		drawer(int(sy-(font_size*6.6))*64, utils.Config.Title, fonts.FaceSub)
+	}
+
+	drawer(int(sy-(font_size*4.8))*64, label, fonts.FaceMain)
 }
 
 func (s *Scene) EachPixel(offset int, colorFunction func(int, int) color.RGBA) {

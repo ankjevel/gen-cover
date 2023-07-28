@@ -5,6 +5,10 @@ import (
 	"strings"
 )
 
+type RGB struct {
+	R, G, B uint8
+}
+
 type HEX string
 
 func (h HEX) String() string {
@@ -13,12 +17,6 @@ func (h HEX) String() string {
 
 func (h HEX) UInt64() (u uint64, err error) {
 	return strconv.ParseUint(h.String(), 16, 32)
-}
-
-type RGB struct {
-	R uint8
-	G uint8
-	B uint8
 }
 
 func fromHEX(hex HEX) (rgb RGB, err error) {

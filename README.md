@@ -1,12 +1,14 @@
-# generate a playlist cover image
+# generate playlist cover images
 
 A TCP server that just generates images on requests
 
 The response in split into two, size and image. The first 4 bytes are the size of the file the image.
 
+![Cover example](docs/example.jpg)
+
 ## Development
 
-Configure the local server by copying `.template.env` to a new file; `.env` and add your overrides.
+Configure the local server by copying [.template.env](.template.env) to a new file (`.env`) and add your overrides.
 
 ```sh
 # to run locally
