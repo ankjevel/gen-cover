@@ -13,6 +13,7 @@ import (
 	"runtime"
 
 	"github.com/ankjevel/gen-cover/fonts"
+	"github.com/ankjevel/gen-cover/utils"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
@@ -50,6 +51,7 @@ func init() {
 	static_dir := filepath.Dir(filename) + "/../static"
 
 	noise = decode(static_dir + "/noise.png")
+
 }
 
 func (s *Scene) AddLabel(x, y int, label string) {
@@ -70,7 +72,10 @@ func (s *Scene) AddLabel(x, y int, label string) {
 	}
 
 	sy := float64(size.Y)
-	drawer(int(sy-(fontsize*6.6))*64, "hello", fonts.FaceSub)
+	if utils.Config.Title != "" {
+		drawer(int(sy-(fontsize*6.6))*64, utils.Config.Title, fonts.FaceSub)
+	}
+
 	drawer(int(sy-(fontsize*4.8))*64, label, fonts.FaceMain)
 }
 
