@@ -2,7 +2,7 @@
 
 A TCP server that just generates images on requests
 
-The response in split into two, size and image. The first 4 bytes are the size of the file the image.
+The response in split into two, size and image. The first 4 bytes are the filesize.
 
 ![Cover example](docs/example.jpg)
 
@@ -29,5 +29,5 @@ To verify that you get the desirec output, use `nc` to connect to the TCP server
 and `dd` to strip the first `4` bytes to the file.
 
 ```sh
-cat <(echo -n "hello") | nc 0.0.0.0 8091 | dd skip=4 bs=1 of=file.jpg
+echo -n "hello" | nc 0.0.0.0 8091 | dd skip=4 bs=1 of=file.jpg status=none
 ```
