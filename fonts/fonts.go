@@ -22,17 +22,17 @@ var (
 )
 
 func parseFont(path string, size float64) font.Face {
-	dat, err := os.ReadFile(path)
+	bytes, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
 
-	ttfFont, err := freetype.ParseFont(dat)
+	ttf_font, err := freetype.ParseFont(bytes)
 	if err != nil {
 		panic(err)
 	}
 
-	return truetype.NewFace(ttfFont, &truetype.Options{
+	return truetype.NewFace(ttf_font, &truetype.Options{
 		Size: size,
 		DPI:  118,
 	})
