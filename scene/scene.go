@@ -6,11 +6,6 @@ import (
 	"image/color"
 	"image/draw"
 	"image/jpeg"
-	"image/png"
-	"log"
-	"os"
-	"path/filepath"
-	"runtime"
 
 	"github.com/ankjevel/gen-cover/fonts"
 	"github.com/ankjevel/gen-cover/utils"
@@ -18,40 +13,13 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
-type Scene struct {
-	Width, Height int
-	Img           *image.RGBA
-}
-
 var (
 	noise image.Image
 )
 
-func decode(path string) (img image.Image) {
-	r, err := os.Open(path)
-	if err != nil {
-		panic(err)
-	}
-	defer r.Close()
-	img, err = png.Decode(r)
-	if err != nil {
-		panic(err)
-	}
-	return
-}
-
-func init() {
-	_, filename, _, ok := runtime.Caller(0)
-
-	if !ok {
-		log.Println("could not get current filename")
-		panic(0)
-	}
-
-	static_dir := filepath.Dir(filename) + "/../static"
-
-	noise = decode(static_dir + "/noise.png")
-
+type Scene struct {
+	Width, Height int
+	Img           *image.RGBA
 }
 
 func (s *Scene) AddLabel(x, y int, label string) {
